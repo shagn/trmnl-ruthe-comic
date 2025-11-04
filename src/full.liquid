@@ -1,0 +1,48 @@
+{% assign days_since_epoch = 'now' | date: '%s' | divided_by: 86400 | floor %}
+{% assign comic_number = days_since_epoch | modulo: 2548 | append: '' | prepend: '0000' | slice: -4, 4 %}
+{% assign comic_url = 'https://ruthe.de/cartoons/strip_' | append: comic_number | append: '.jpg' %}
+
+<style>
+  .view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .layout {
+    flex: 1 1 auto;
+    min-height: 0; /* allow children to shrink properly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .image.comic {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .title_bar {
+    flex: 0 0 auto;
+  }
+</style>
+
+
+<div class="view view--{{ size }}">
+  <div class="layout layout-col">
+    <img
+      class="image comic"
+      src="{{ comic_url }}"
+      alt="Ralph Ruthe Comic"
+    >
+  </div>
+  <div class="title_bar">
+    <img class="image" src="https://ruthe.de/images/favicon.ico" alt="Ralph Ruthe Logo">
+    <span class="title">Ralph Ruthe Comic</span>
+    <span class="instance">Quelle: ruthe.de</span>
+  </div>
+</div>
